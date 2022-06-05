@@ -4,16 +4,12 @@ let unidad = 0;
 let precioTotal = 0;
 let precioFinal = 0;
 let resultado;
-
 //Tomo id de los forms
 let productos = document.getElementById("productos");
 let unidades = document.getElementById("unidades");
 let precioProductos = document.getElementById("precioProductos");
 let total = document.getElementById("total");
 let vaciarCarro = document.getElementById("vaciarCarro");
-
-///NUEVO BOTÓN PARA SUBIR ELEMENTOS AL CARRO/////
-
 let verCarro = document.getElementById("verCarro");
 let metodosPago = document.getElementById("metodosPago");
 let pagar = document.getElementById("pagar");
@@ -44,20 +40,16 @@ const cuotas = [
   { nombre: "12 cuotas", recargo: 1.8, numero: 12 },
 ];
 let carrito = [];
-
 //Le pregunto al storage si hay datos en el.
 if (localStorage.getItem('carrito')!=null || localStorage.getItem('precioTotal')!=null){
   carrito = JSON.parse(localStorage.getItem('carrito'));
   precioTotal = JSON.parse(localStorage.getItem('precioTotal'));
   total.placeholder = "$" + precioTotal;
-  console.log(precioTotal);
-  console.log(carrito);
   }
   else{
   carrito = [];
   precioTotal = 0; 
   }
-  
 //Función de reseteo de var e index
 function reseteo() {
   unidad = 0;
@@ -65,15 +57,16 @@ function reseteo() {
   metodosPago.selectedIndex = "0";
   cuotasSeleccionadas.selectedIndex = "0";
   cuotasSeleccionadas.style.display = "none";
-  
 }
 //Muestra total si es mayor a 0, si no, se imprime no hay monto.
 function zero(param1) {
-  if (param1 > 0) {
-    total.placeholder = "$" + precioFinal;
-  } else {
-    total.placeholder = "No hay monto";
-  }
+
+
+
+  //OPERADOR TERNARIO//
+
+
+  param1 > 0 ? total.placeholder = "$" + precioFinal : total.placeholder = "No hay monto";
 }
 //Funcion que muestra precio
 function mostrarPrecio() {
@@ -91,10 +84,7 @@ function tomarUnidad() {
   //La variable unidad es el valor que se ingrese en el input de unidades.
   unidad = unidades.value;
 }
-
-////NUEVO/////
-
-//////Función que sube al carrito.////////
+//Sube al carrito las unidades de los productos y los sube al Local Storage
 function subirAlCarro() {
 
   //creo una constante que verifique si el elemento ya existe en el carrito con find.
@@ -114,7 +104,7 @@ function subirAlCarro() {
     carrito[modificar].unit += parseInt(unidad);
     
   }
-  
+  //Subo el carrito al localStorage con su lenguaje a partir de JSON.
   localStorage.setItem('carrito',JSON.stringify(carrito));
   //Verificación
   console.log(carrito);
@@ -122,9 +112,11 @@ function subirAlCarro() {
 //Al presionar enter, se agregan las unidades ingresadas al carro.
 function agregarAlCarro(event) {
   x = event.key;
-  if (x == "Enter") {
-    agregar();
-  }
+ 
+   ///////OPERADOR LÓGICO AND
+
+
+ x == "Enter" && agregar();
 }
 function agregar() {
   if (unidad > 10) {
@@ -143,9 +135,6 @@ function agregar() {
     reseteo();
   }
 }
-
-////NUEVO/////
-
 /////Function ver carrito//////
 function verCarrito(){
   //Abro modal
@@ -245,16 +234,17 @@ function paga() {
     localStorage.clear();
   }
 }
-
 //Si apreta el botón cerrar, se cierra el modal.
 cerrarModal.addEventListener("click", () => {
   cerrar();
   cerrarTabla();
-  
   //Si ya se pidio pagar, se reinicia la página.
-  if (contenidoTexto.innerHTML == " ¡La transacción ha sido exitosa!") {
-    location.reload();
-  }
+
+
+  /////OPERADOR LOGICO AND
+
+
+  contenidoTexto.innerHTML == " ¡La transacción ha sido exitosa!" && location.reload();
   //Reseteo el contenido texto 
   contenidoTable.innerHTML='';
   contenidoTexto.innerHTML='';
