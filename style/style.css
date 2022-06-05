@@ -1,0 +1,298 @@
+@import url("https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&family=Patrick+Hand+SC&family=Titillium+Web:wght@300&display=swap");
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: radial-gradient(circle, #fefefe 0%, #b5cce6 100%);
+}
+
+body header nav {
+  width: 95%;
+}
+
+body header nav div a {
+  font-family: "Pathway Gothic One", sans-serif;
+}
+
+body .mainMaster {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-image: url("../assets/Fondo.jpg");
+  height: 629px;
+}
+
+body .mainMaster .mainCentrado {
+  width: 95%;
+  background-color: rgba(80, 80, 80, 0.623);
+}
+
+body .mainMaster .mainCentrado .encabezado {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 150px;
+}
+
+body .mainMaster .mainCentrado .encabezado h3 {
+  color: azure;
+  font-family: "Pathway Gothic One", sans-serif;
+}
+
+body .mainMaster .mainCentrado .rowDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  background-color: rgba(240, 248, 255, 0.148);
+}
+
+body .mainMaster .mainCentrado .rowDiv .botones {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 400px;
+  width: 50%;
+}
+
+body .mainMaster .mainCentrado .rowDiv .botones .pagar,
+body .mainMaster .mainCentrado .rowDiv .botones .productos,
+body .mainMaster .mainCentrado .rowDiv .botones .comprar,
+body .mainMaster .mainCentrado .rowDiv .botones .precio {
+  width: 60%;
+  height: 15%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body .mainMaster .mainCentrado .rowDiv .botones .pagar select,
+body .mainMaster .mainCentrado .rowDiv .botones .pagar .input-group,
+body .mainMaster .mainCentrado .rowDiv .botones .productos select,
+body .mainMaster .mainCentrado .rowDiv .botones .productos .input-group,
+body .mainMaster .mainCentrado .rowDiv .botones .comprar select,
+body .mainMaster .mainCentrado .rowDiv .botones .comprar .input-group,
+body .mainMaster .mainCentrado .rowDiv .botones .precio select,
+body .mainMaster .mainCentrado .rowDiv .botones .precio .input-group {
+  width: 80%;
+}
+
+body .mainMaster .mainCentrado .rowDiv .botones .pagar button,
+body .mainMaster .mainCentrado .rowDiv .botones .productos button,
+body .mainMaster .mainCentrado .rowDiv .botones .comprar button,
+body .mainMaster .mainCentrado .rowDiv .botones .precio button {
+  font-family: "Pathway Gothic One", sans-serif;
+}
+
+body .mainMaster .mainCentrado .rowDiv .pagarTotal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 50%;
+}
+
+body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos #encabezados {
+  color: aliceblue;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-family: "Pathway Gothic One", sans-serif;
+  margin-top: 10px;
+}
+
+body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos .metodosMaster {
+  background-color: rgba(240, 240, 240, 0.168);
+  border-radius: 2%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 150px;
+}
+
+body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos .metodosMaster .metodos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos .metodosMaster #cuotasDiv {
+  width: 31.5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos .metodosMaster #cuotasDiv #cuotas {
+  display: none;
+  width: 100%;
+  margin-top: 5px;
+}
+
+body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos .numeros {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos .pagar {
+  height: 50px;
+  font-family: "Pathway Gothic One", sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos .vaciar {
+  height: 50px;
+  font-family: "Pathway Gothic One", sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+body .mainMaster .mainCentrado .hideTable {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body .mainMaster .mainCentrado .modalShow {
+  opacity: 1;
+  pointer-events: unset;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+body .mainMaster .mainCentrado .modalHide {
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transform: translateY(-100vh);
+          transform: translateY(-100vh);
+}
+
+body .mainMaster .mainCentrado #modal__ {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  background-color: rgba(0, 0, 0, 0.194);
+}
+
+body .mainMaster .mainCentrado #modal__ .modal__container {
+  margin: auto;
+  width: 90%;
+  max-width: 400px;
+  max-height: 90%;
+  background: #efefef;
+  border-radius: 6px;
+  padding: 1em 1.5em;
+  display: -ms-grid;
+  display: grid;
+  gap: 10px;
+  grid-auto-columns: 100%;
+}
+
+body .mainMaster .mainCentrado #modal__ .modal__close {
+  width: 4.4em;
+  text-decoration: none;
+  color: white;
+  background-color: #a7a7a7;
+  padding: 10px 12px;
+  border: 1px solid white;
+  border-radius: 6px;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+body .mainMaster .mainCentrado #modal__ .modal__close:hover {
+  background-color: white;
+  border: 1px solid black;
+  color: #010101;
+}
+/*# sourceMappingURL=style.css.map */

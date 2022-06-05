@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pre-Entrega</title>
+    <link rel="stylesheet" href="style/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              fill="currentColor"
+              class="bi bi-shop"
+              viewBox="0 0 18 18"
+            >
+              <path
+                d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"
+              />
+            </svg>
+            Mini Market
+          </a>
+        </div>
+      </nav>
+    </header>
+    <div class="mainMaster">
+      <div class="mainCentrado">
+        <div class="encabezado">
+          <h3>Bienvenidos al Market</h3>
+        </div>
+        <div class="rowDiv">
+          <div class="botones">
+            <div class="productos">
+              <select
+                class="form-select"
+                id="productos"
+                onchange="mostrarPrecio()"
+                aria-label="Default select example"
+              >
+                <option selected disabled>Productos</option>
+                <option value="1">Manzana</option>
+                <option value="2">Banana</option>
+                <option value="3">Palta</option>
+                <option value="4">Zanahoria</option>
+                <option value="5">Choclo</option>
+                <option value="6">Zapallo</option>
+              </select>
+            </div>
+            <div class="productos">
+              <div class="input-group">
+                <span class="input-group-text" id="inputGroup-sizing-lg"
+                  >Unidades</span
+                >
+                <!-- Busqué como darle un limite a las unidades de un input, y salió, son puras palabras reservadas en el evento adentro del input. -->
+                <input
+                  type="number"
+                  id="unidades"
+                  onchange="tomarUnidad()"
+                  onkeyup="agregarAlCarro(event)"
+                  oninput="if(this.value.length > this.maxLength && this.value > this.max) this.value = this.value.slice(0, this.maxLength);"
+                  maxlength="1"
+                  min="0"
+                  max="10"
+                  class="form-control"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-lg"
+                />
+              </div>
+            </div>
+            <div class="precio">
+              <div class="input-group">
+                <span class="input-group-text" id="inputGroup-sizing-lg"
+                  >Precio del producto</span
+                >
+                <input
+                  type="number"
+                  placeholder="$0"
+                  id="precioProductos"
+                  readonly
+                  class="form-control"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-lg"
+                />
+              </div>
+            </div>
+            <div class="comprar">
+              <button type="button" onclick="agregar()" class="btn btn-light">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  class="bi bi-bag-plus"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"
+                  />
+                  <path
+                    d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"
+                  /></svg
+                >Añadir al carro
+              </button>
+            </div>
+          </div>
+
+          <div class="pagarTotal">
+            <div class="dos">
+              <div><h5 id="encabezados">Carrito</h5></div>
+              <div class="numeros">
+                <div class="total">
+                  <div class="input-group">
+                    <span class="input-group-text" id="inputGroup-sizing-lg"
+                      >Total</span
+                    >
+                    <input
+                      type="number"
+                      placeholder="$0"
+                      id="total"
+                      readonly
+                      class="form-control"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-lg"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="vaciar">
+                <!-- Botón para mostrar carrito, proximamente. -->
+                <button
+                  type="button"
+                  onclick="verCarrito()"
+                  id="verCarro"
+                  class="btn btn-light"
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag" viewBox="0 0 20 20">
+                  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                </svg>
+                  Ver carrito
+                </button>
+                <button
+                  type="button"
+                  onclick="vaciarCarrito()"
+                  id="vaciarCarro"
+                  class="btn btn-light"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    class="bi bi-bag-x"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708z"
+                    />
+                    <path
+                      d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"
+                    />
+                  </svg>
+                  Vaciar Carrito
+                </button>
+              </div>
+              <div class="metodosMaster">
+                <h5 id="encabezados">Métodos de pago</h5>
+                <div class="metodos">
+                  <select
+                    class="form-select"
+                    id="metodosPago"
+                    onchange="mostrarPrecioFinal()"
+                    aria-label="Default select example"
+                  >
+                    <option selected disabled value="0">
+                      Click para ver métodos
+                    </option>
+                    <option value="1">Tarjeta de crédito</option>
+                    <option value="2">Tarjeta de débito</option>
+                    <option value="3">Efectivo</option>
+                  </select>
+                </div>
+                <div id="cuotasDiv">
+                  <select
+                    class="form-select"
+                    id="cuotas"
+                    onchange="mostrarCuotas()"
+                    aria-label="Default select example"
+                  >
+                    <option selected disabled value="0" alt="Cuotas">Cuotas</option>
+                    <option value="1" alt="1 cuota">1 cuota</option>
+                    <option value="2" alt="3 cuotas">3 cuotas</option>
+                    <option value="3" alt="6 cuotas">6 cuotas</option>
+                    <option value="4" alt="12 cuotas">12 cuotas</option>
+                  </select>
+                </div>
+              </div>
+              <div class="pagar">
+                <button
+                  type="button"
+                  onclick="paga()"
+                  id="pagar"
+                  class="btn btn-light"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    class="bi bi-credit-card"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"
+                    />
+                    <path
+                      d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"
+                    /></svg
+                  >Pagar
+                </button>
+              </div>
+       
+            </div>
+          </div>
+        </div>
+        <section id="modal__" class="modalHide">
+          <div class="modal__container">
+            <h2 class="modal__title">Notificación</h2>
+            <table id="tabla" class="table d-none">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Unidades</th>
+                </tr>
+              </thead>
+              <tbody id="tableContent">
+               
+              </tbody>    
+            </table>
+            <p class="modal__paragraph" id="contenidoText">
+            
+            </p>
+            <a href="#" class="modal__close">Cerrar</a>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>
