@@ -138,6 +138,7 @@ function agregar() {
 /////Function ver carrito//////
 function verCarrito(){
   //Abro modal
+  Swal.fire('Any fool can use a computer')
 abrir();
 abrirTabla();
 //por cada producto dentro de carrito, muestro los datos por innerHTML
