@@ -86,7 +86,6 @@ function tomarUnidad() {
 }
 //Sube al carrito las unidades de los productos y los sube al Local Storage
 function subirAlCarro() {
-
   //creo una constante que verifique si el elemento ya existe en el carrito con find.
   const duplicado = carrito.some((elemento) => elemento.ID === resultado.ID);
   console.log(duplicado);
@@ -108,6 +107,7 @@ function subirAlCarro() {
   localStorage.setItem('carrito',JSON.stringify(carrito));
   //Verificación
   console.log(carrito);
+  
 }
 //Al presionar enter, se agregan las unidades ingresadas al carro.
 function agregarAlCarro(event) {
@@ -119,7 +119,7 @@ function agregarAlCarro(event) {
  x == "Enter" && agregar();
 }
 function agregar() {
-  if (unidad > 10) {
+  if (unidad <= 0||unidad > 10) {
     unidad = 0;
     unidades.value = undefined;
   } else {
@@ -138,7 +138,6 @@ function agregar() {
 /////Function ver carrito//////
 function verCarrito(){
   //Abro modal
-  Swal.fire('Any fool can use a computer')
 abrir();
 abrirTabla();
 //por cada producto dentro de carrito, muestro los datos por innerHTML
@@ -224,15 +223,35 @@ function cerrar() {
 }
 function paga() {
   //Abro el modal sea que no haya ingresado dato, o lo haya ingresado.
-  abrir();
   //Si el precio final es 0 o el indice o value de "metodosPago" es 0, se le indíca al usuario que no hizo ninguna compra.
-  if (precioFinal == 0 || metodosPago.selectedIndex == "0") {
-    contenidoTexto.innerHTML =
-      "Todavía no compró nada y/o no eligío ningun método de pago.";
+  if (precioFinal == 0 || metodosPago.selectedIndex == "0" || metodosPago.selectedIndex == "1" && cuotasSeleccionadas.selectedIndex == "0") {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Todavía no compró nada y/o no eligío ningun método de pago.'
+      })
   } else {
-    contenidoTexto.innerHTML = " ¡La transacción ha sido exitosa!";
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: "Estas por pagar con "+metodosPago.options[metodosPago.selectedIndex].text+".",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Pagar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Transacción exitosa',
+          'Te llegara un email en unos instantes, gracias por comprar en esta tienda!',
+          'success'
+        ).then(() => { //Está funcion flecha la encontre por ahí, si usuario apreta OK, se actualiza la página y se borra el storage.
+          localStorage.clear();
+          location.reload();
+        })  
+      }
+    })
     //Borro todo y se realiza la transacción
-    localStorage.clear();
   }
 }
 //Si apreta el botón cerrar, se cierra el modal.
@@ -245,7 +264,6 @@ cerrarModal.addEventListener("click", () => {
   /////OPERADOR LOGICO AND
 
 
-  contenidoTexto.innerHTML == " ¡La transacción ha sido exitosa!" && location.reload();
   //Reseteo el contenido texto 
   contenidoTable.innerHTML='';
   contenidoTexto.innerHTML='';
