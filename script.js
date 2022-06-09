@@ -48,6 +48,7 @@ if (localStorage.getItem('carrito')!=null || localStorage.getItem('precioTotal')
   }
   else{
   carrito = [];
+  
   precioTotal = 0; 
   }
 //Función de reseteo de var e index
@@ -106,6 +107,13 @@ function subirAlCarro() {
   //Subo el carrito al localStorage con su lenguaje a partir de JSON.
   localStorage.setItem('carrito',JSON.stringify(carrito));
   //Verificación
+  Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'Se han añadido los productos al carrito',
+    showConfirmButton: false,
+    timer: 1500
+  })
   console.log(carrito);
   
 }
@@ -119,7 +127,8 @@ function agregarAlCarro(event) {
  x == "Enter" && agregar();
 }
 function agregar() {
-  if (unidad <= 0||unidad > 10) {
+  console.log(carrito);
+  if (unidad <= 0||unidad > 10 || unidad % 1 != 0) {
     unidad = 0;
     unidades.value = undefined;
   } else {
@@ -155,6 +164,7 @@ abrirTabla();
 function vaciarCarrito() {
   //Reseteo las var para que el precio total se ponga en 0
   precioTotal = 0;
+  precioFinal = 0;
   reseteo();
   total.placeholder = "$" + precioTotal;
   //Elimino los datos del array con un for.
@@ -163,6 +173,13 @@ function vaciarCarrito() {
   }
   localStorage.clear();
   contenidoTable.innerHTML=``;
+  Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'Se ha vaciado el carrito',
+    showConfirmButton: false,
+    timer: 1500
+  })
 }
 let resultadoMetodo;
 function mostrarPrecioFinal() {
@@ -247,6 +264,7 @@ function paga() {
           'success'
         ).then(() => { //Está funcion flecha la encontre por ahí, si usuario apreta OK, se actualiza la página y se borra el storage.
           localStorage.clear();
+          precioFinal = 0;
           location.reload();
         })  
       }
