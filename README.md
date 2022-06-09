@@ -21,5 +21,5 @@
 
 # Los métodos de pago se encuentran en el select "Métodos de pago", cada método tiene un recargo o descuento, dependiendo cual elija el usuario. Si elige "Tarjeta de credito", se hace visible un select con las cuotas disponibles para el pago, con el recargo correspondiente.
 
-# Al clickear pagar, se le indica que la transacción ha sido exitosa a traves de un modal. Si no hay monto y clickea pagar, se le indica que todavia no ingreso monto o forma de pago y ademas en el contenido del input "Total" aparece la frase "No hay monto".
+# Se añadieron sweets alerts para una ejecución más amigable
 

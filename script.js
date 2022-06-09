@@ -59,14 +59,18 @@ function reseteo() {
   cuotasSeleccionadas.selectedIndex = "0";
   cuotasSeleccionadas.style.display = "none";
 }
+function carritoVacio(){
+  Swal.fire({
+    position: 'top-end',
+    icon: 'error',
+    title: 'No hay elementos en el carrito',
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
 //Muestra total si es mayor a 0, si no, se imprime no hay monto.
-function zero(param1) {
-
-
-
+function zero(param1) { 
   //OPERADOR TERNARIO//
-
-
   param1 > 0 ? total.placeholder = "$" + precioFinal : total.placeholder = "No hay monto";
 }
 //Funcion que muestra precio
@@ -87,6 +91,10 @@ function tomarUnidad() {
 }
 //Sube al carrito las unidades de los productos y los sube al Local Storage
 function subirAlCarro() {
+  console.log(unidad);
+  console.log(unidades.value);
+  
+  
   //creo una constante que verifique si el elemento ya existe en el carrito con find.
   const duplicado = carrito.some((elemento) => elemento.ID === resultado.ID);
   console.log(duplicado);
@@ -115,7 +123,7 @@ function subirAlCarro() {
     timer: 1500
   })
   console.log(carrito);
-  
+
 }
 //Al presionar enter, se agregan las unidades ingresadas al carro.
 function agregarAlCarro(event) {
@@ -128,10 +136,32 @@ function agregarAlCarro(event) {
 }
 function agregar() {
   console.log(carrito);
-  if (unidad <= 0||unidad > 10 || unidad % 1 != 0) {
+  //Si no hay producto elegido, se le avisa que no eligio uno.
+  if(productos.selectedIndex == "0"){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: 'No ha elegido un producto',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  } 
+  //Y si eligió producto, pero no ingreso un digito del 1 al 10, o directamente no ingreso nada, se le avisa
+  else if (unidad <= 0||unidad > 10 || unidad % 1 != 0) {
     unidad = 0;
     unidades.value = undefined;
-  } else {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Ha ingresado un dato inválido.',
+        text:'Solo se pueden ingresar de 1 a 10 unidades.',
+        showConfirmButton: false,
+        timer: 1700
+      })
+    
+  }
+  //y si no, se sube el dato al carro.
+  else {
     //Subo el dato al carro.
     subirAlCarro();
     //El precio total es el precio tomado del array, por la unidad tomado por input.
@@ -146,6 +176,11 @@ function agregar() {
 }
 /////Function ver carrito//////
 function verCarrito(){
+  //Si el vacio está vacio, se llama a una función que contiene un swal.fire avisando a usuario que no hay
+  //elementos en el carro.
+  if ( carrito.length == 0){
+    carritoVacio();
+  }else{ //Y si no, se le muestra el modal de productos al usuario
   //Abro modal
 abrir();
 abrirTabla();
@@ -161,7 +196,13 @@ abrirTabla();
   `
   }
 }
+}
 function vaciarCarrito() {
+console.log(carrito);
+if ( carrito.length == 0){
+  carritoVacio();
+}
+else{
   //Reseteo las var para que el precio total se ponga en 0
   precioTotal = 0;
   precioFinal = 0;
@@ -180,6 +221,7 @@ function vaciarCarrito() {
     showConfirmButton: false,
     timer: 1500
   })
+}
 }
 let resultadoMetodo;
 function mostrarPrecioFinal() {
