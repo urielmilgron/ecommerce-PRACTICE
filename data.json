@@ -1,7 +1,9 @@
 [
-  { "nombre": "Tomate", "precio": 60, "id":1 },
-  { "nombre": "Arroz", "precio": 120, "id":2 },
-  { "nombre": "Fideos", "precio": 135, "id":3 },
-  { "nombre": "Jugo Ades", "precio": 180, "id":4 },
-  { "nombre": "Jugo Cepita", "precio": 80, "id":5 }
+  { "nombre": "Manzana","carbohidratos":"13,81 g","azucares":"10,39 g", "tipo":"Fruta", "id":1, "img":"https://img.huffingtonpost.com/asset/5ef9ffab250000a502c28ec2.jpeg?ops=scalefit_720_noupscale"},
+  { "nombre": "Banana","carbohidratos":"20,32 g","azucares":"13,20 g","tipo":"Fruta", "id":2, "img":"https://st.depositphotos.com/1642482/1904/i/600/depositphotos_19049353-stock-photo-fruit.jpg" },
+  { "nombre": "Palta", "carbohidratos":"9 g","azucares":"0,7 g","tipo":"Fruta", "id":3, "img":"https://imgmedia.buenazo.pe/475x475/buenazo/original/2020/09/21/5f690a710c9613735c7fa8a1.jpg" },
+  { "nombre": "Zanahoria", "carbohidratos":"10 g","azucares":"4,7 g","tipo":"Verdura", "id":4, "img":"https://st.depositphotos.com/1000141/2653/i/600/depositphotos_26536551-stock-photo-one-young-carrot.jpg" },
+  { "nombre": "Choclo", "carbohidratos":"22 g","azucares":"3,2 g","tipo":"Verdura", "id":5, "img":"https://www.nutricionyentrenamiento.fit/images/alimento/297.jpg" },
+  { "nombre": "Zapallo", "carbohidratos":"7 g","azucares":"2,8 g","tipo":"Verdura", "id":6, "img":"https://www.suat.com.uy/upcms/thumbs/648x365/novedades/imagen/947_big-zapallo.jpg" }
+  
 ]

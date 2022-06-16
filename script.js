@@ -315,40 +315,57 @@ function paga() {
     //Borro todo y se realiza la transacción
   }
 }
+////NUEVO
+
+//BOTON INFORMACIÓN
+
+//Cuando se clickea el botón informacion, se ejecuta el código.
+
 informacion.addEventListener('click',()=> {
-  Swal.fire({
-    title: 'Submit your Github username',
-    input: 'text',
-    inputAttributes: {
-      autocapitalize: 'off'
-    },
-    showCancelButton: true,
-    confirmButtonText: 'Look up',
-    showLoaderOnConfirm: true,
-    preConfirm: (login) => {
-      return fetch(`//api.github.com/users/${login}`)
+  //Si el index del select es igual a 0, se le informa que no se eligio producto
+  if (productos.selectedIndex == 0){
+    Swal.fire({
+      position: 'top-center',
+      icon: 'error',
+      title: 'No se eligió ningún producto',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
+  //Y si no, se le muestra la info.
+  else{
+    //Se realiza un fetch al data.json con los datos de los productos.
+       fetch(`/data.json`)
         .then(response => {
+          //Si la respuesta es diferente de response.ok, se lanza un nuevo error, mostrando el response con el texto error.
           if (!response.ok) {
             throw new Error(response.statusText)
           }
+          //Si no, se returna response
           return response.json()
         })
+        //Si hay error, se le indica que no hubo respuesta.
         .catch(error => {
           Swal.showValidationMessage(
-            `Request failed: ${error}`
+            `Falló la solicitud: ${error}`
           )
         })
-    },
-    allowOutsideClick: () => !Swal.isLoading()
-  }).then((result) => {
-    if (result.isConfirmed) {
+        //Y si hubo resultado, y ademas el result tiene 6 array, se ejecuta el swal con la info del producto elegido por select.
+   .then((result) => {
+    if (result.length == 6) {
       Swal.fire({
-        title: `${result.value.login}'s avatar`,
-        imageUrl: result.value.avatar_url
+        imageUrl:`${result[productos.selectedIndex-1].img}`,
+        imageHeight: 80,imageWidth: 100,
+        title: `${result[productos.selectedIndex-1].nombre}`,
+        text:`Tipo: ${result[productos.selectedIndex-1].tipo}, Carbohidratos: ${result[productos.selectedIndex-1].carbohidratos}, Azúcares: ${result[productos.selectedIndex-1].azucares}` ,
       })
     }
   })
-})
+}
+}) //FIN
+
+
+
 //Si apreta el botón cerrar, se cierra el modal.
 cerrarModal.addEventListener("click", () => {
   cerrar();
