@@ -1,0 +1,7 @@
+[
+  { "nombre": "Tomate", "precio": 60, "id":1 },
+  { "nombre": "Arroz", "precio": 120, "id":2 },
+  { "nombre": "Fideos", "precio": 135, "id":3 },
+  { "nombre": "Jugo Ades", "precio": 180, "id":4 },
+  { "nombre": "Jugo Cepita", "precio": 80, "id":5 }
+]

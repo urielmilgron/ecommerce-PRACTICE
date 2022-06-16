@@ -19,6 +19,7 @@ let cerrarModal = document.querySelector(".modal__close");
 let contenidoTexto = document.getElementById("contenidoText");
 let tabla = document.getElementById("tabla");
 let contenidoTable = document.getElementById("tableContent");
+let informacion = document.getElementById("informacion");
 //Creo un array de productos y métodos de pago.
 const productosMarket = [
   { ID: 1, nombre: "Manzana", precio: 20, unit: 0 },
@@ -139,7 +140,7 @@ function agregar() {
   //Si no hay producto elegido, se le avisa que no eligio uno.
   if(productos.selectedIndex == "0"){
     Swal.fire({
-      position: 'top-end',
+      position: 'top-middle',
       icon: 'error',
       title: 'No ha elegido un producto',
       showConfirmButton: false,
@@ -151,7 +152,7 @@ function agregar() {
     unidad = 0;
     unidades.value = undefined;
       Swal.fire({
-        position: 'top-end',
+        position: 'top-middle',
         icon: 'error',
         title: 'Ha ingresado un dato inválido.',
         text:'Solo se pueden ingresar de 1 a 10 unidades.',
@@ -314,6 +315,40 @@ function paga() {
     //Borro todo y se realiza la transacción
   }
 }
+informacion.addEventListener('click',()=> {
+  Swal.fire({
+    title: 'Submit your Github username',
+    input: 'text',
+    inputAttributes: {
+      autocapitalize: 'off'
+    },
+    showCancelButton: true,
+    confirmButtonText: 'Look up',
+    showLoaderOnConfirm: true,
+    preConfirm: (login) => {
+      return fetch(`//api.github.com/users/${login}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(response.statusText)
+          }
+          return response.json()
+        })
+        .catch(error => {
+          Swal.showValidationMessage(
+            `Request failed: ${error}`
+          )
+        })
+    },
+    allowOutsideClick: () => !Swal.isLoading()
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: `${result.value.login}'s avatar`,
+        imageUrl: result.value.avatar_url
+      })
+    }
+  })
+})
 //Si apreta el botón cerrar, se cierra el modal.
 cerrarModal.addEventListener("click", () => {
   cerrar();
