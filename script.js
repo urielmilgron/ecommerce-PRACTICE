@@ -4,7 +4,7 @@ let unidad = 0;
 let precioTotal = 0;
 let precioFinal = 0;
 let resultado;
-//Tomo id de los forms
+//Tomo id/queryselectors de los forms
 let productos = document.getElementById("productos");
 let unidades = document.getElementById("unidades");
 let precioProductos = document.getElementById("precioProductos");
@@ -42,16 +42,27 @@ const cuotas = [
 ];
 let carrito = [];
 //Le pregunto al storage si hay datos en el.
-if (localStorage.getItem('carrito')!=null || localStorage.getItem('precioTotal')!=null){
-  carrito = JSON.parse(localStorage.getItem('carrito'));
-  precioTotal = JSON.parse(localStorage.getItem('precioTotal'));
-  total.placeholder = "$" + precioTotal;
-  }
-  else{
-  carrito = [];
-  
-  precioTotal = 0; 
-  }
+setTimeout(()=>{
+  if (localStorage.getItem('carrito')!=null || localStorage.getItem('precioTotal')!=null){
+    carrito = JSON.parse(localStorage.getItem('carrito'));
+    precioTotal = JSON.parse(localStorage.getItem('precioTotal'));
+    total.placeholder = "$" + precioTotal;
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Se cargó el carrito!',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    }
+    else{
+    carrito = [];
+    
+    precioTotal = 0; 
+    }
+
+},800)
+
 //Función de reseteo de var e index
 function reseteo() {
   unidad = 0;
@@ -60,6 +71,7 @@ function reseteo() {
   cuotasSeleccionadas.selectedIndex = "0";
   cuotasSeleccionadas.style.display = "none";
 }
+//Función aviso de carro vacío
 function carritoVacio(){
   Swal.fire({
     position: 'top-end',
@@ -71,23 +83,18 @@ function carritoVacio(){
 }
 //Muestra total si es mayor a 0, si no, se imprime no hay monto.
 function zero(param1) { 
-  //OPERADOR TERNARIO//
   param1 > 0 ? total.placeholder = "$" + precioFinal : total.placeholder = "No hay monto";
 }
 //Funcion que muestra precio
 function mostrarPrecio() {
-  //la var "resultado" va a buscar en el array, lo que se haya elegido en el select(Busqué como en 10 páginas y pude saber como tomar el texto de la opción, costó pero se pudo.)
   resultado = productosMarket.find(
     (productosMarket) =>
       productosMarket.nombre === productos.options[productos.selectedIndex].text
   );
-  //Precio es el precio del objeto encontrado.
   precio = resultado.precio;
-  //Se cambia el monto del placeholder para mostrar el precio.
   precioProductos.placeholder = "$" + precio;
 }
 function tomarUnidad() {
-  //La variable unidad es el valor que se ingrese en el input de unidades.
   unidad = unidades.value;
 }
 //Sube al carrito las unidades de los productos y los sube al Local Storage
@@ -126,15 +133,12 @@ function subirAlCarro() {
   console.log(carrito);
 
 }
-//Al presionar enter, se agregan las unidades ingresadas al carro.
+//SE AGREGA AL CARRO CON TECLA ENTER
 function agregarAlCarro(event) {
   x = event.key;
- 
-   ///////OPERADOR LÓGICO AND
-
-
  x == "Enter" && agregar();
 }
+//FUNCION QUE AGREGA AL CARRO O DA AVISO SI NO HAY DATO.
 function agregar() {
   console.log(carrito);
   //Si no hay producto elegido, se le avisa que no eligio uno.
@@ -315,12 +319,7 @@ function paga() {
     //Borro todo y se realiza la transacción
   }
 }
-////NUEVO
-
 //BOTON INFORMACIÓN
-
-//Cuando se clickea el botón informacion, se ejecuta el código.
-
 informacion.addEventListener('click',()=> {
   //Si el index del select es igual a 0, se le informa que no se eligio producto
   if (productos.selectedIndex == 0){
@@ -352,7 +351,7 @@ informacion.addEventListener('click',()=> {
         })
         //Y si hubo resultado, y ademas el result tiene 6 array, se ejecuta el swal con la info del producto elegido por select.
    .then((result) => {
-    if (result.length == 6) {
+     if (result.length == 6) {
       Swal.fire({
         imageUrl:`${result[productos.selectedIndex-1].img}`,
         imageHeight: 80,imageWidth: 100,
@@ -364,18 +363,11 @@ informacion.addEventListener('click',()=> {
 }
 }) //FIN
 
-
-
 //Si apreta el botón cerrar, se cierra el modal.
 cerrarModal.addEventListener("click", () => {
   cerrar();
   cerrarTabla();
   //Si ya se pidio pagar, se reinicia la página.
-
-
-  /////OPERADOR LOGICO AND
-
-
   //Reseteo el contenido texto 
   contenidoTable.innerHTML='';
   contenidoTexto.innerHTML='';

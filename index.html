@@ -5,13 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pre-Entrega</title>
+    <!-- LINK CSS -->
     <link rel="stylesheet" href="style/style.css" />
+    <!-- CSS BOOSTRAP -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <!-- CSS SWEETALERT -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.min.css">
   </head>
   <body>
@@ -43,6 +46,7 @@
         </div>
         <div class="rowDiv">
           <div class="botones">
+            <!-- SELECT PRODUCTOS -->
             <div class="productos">
               <select
                 class="form-select"
@@ -65,7 +69,7 @@
                 <span class="input-group-text" id="inputGroup-sizing-lg"
                   >Unidades</span
                 >
-                <!-- Busqué como darle un limite a las unidades de un input, y salió, son puras palabras reservadas en el evento adentro del input. -->
+                <!-- INPUT UNIDADES -->
                 <input
                   type="number"
                   id="unidades"
@@ -97,6 +101,7 @@
                 />
               </div>
             </div>
+            <!-- BOTON QUE AGREGA AL CARRO -->
             <div class="comprar">
               <button type="button" onclick="agregar()" class="btn btn-light">
                 <svg
@@ -118,7 +123,7 @@
               </button>
             </div>
           </div>
-
+          <!-- SE MUESTRA CARRITO -->
           <div class="pagarTotal">
             <div class="dos">
               <div><h5 id="encabezados">Carrito</h5></div>
@@ -141,7 +146,7 @@
                 </div>
               </div>
               <div class="vaciar">
-                <!-- Botón para mostrar carrito, proximamente. -->
+                <!-- BOTON QUE MUESTRA CARRITO -->
                 <button
                   type="button"
                   onclick="verCarrito()"
@@ -153,6 +158,7 @@
                 </svg>
                   Ver carrito
                 </button>
+                <!-- BOTON VACIAR CARRO -->
                 <button
                   type="button"
                   onclick="vaciarCarrito()"
@@ -179,6 +185,7 @@
                 </button>
               </div>
               <div class="metodosMaster">
+                <!-- SELECT METODOS DE PAGO -->
                 <h5 id="encabezados">Métodos de pago</h5>
                 <div class="metodos">
                   <select
@@ -195,6 +202,7 @@
                     <option value="3">Efectivo</option>
                   </select>
                 </div>
+                 <!-- SELECT CUOTAS -->
                 <div id="cuotasDiv">
                   <select
                     class="form-select"
@@ -211,6 +219,7 @@
                 </div>
               </div>
               <div class="pagar">
+                <!-- BOTON PAGAR -->
                 <button
                   type="button"
                   onclick="paga()"
@@ -238,6 +247,7 @@
             </div>
           </div>
         </div>
+        <!-- MODAL CARRO -->
         <section id="modal__" class="modalHide">
           <div class="modal__container">
             <h2 class="modal__title">Notificación</h2>
@@ -263,12 +273,15 @@
         
       </div>
     </div>
+    <!-- SCRIPT BOOSTRAP -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <!-- SCRIPT SWEETALERT -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js"></script>
+    <!-- SCRIPT JS -->
     <script src="script.js"></script>
   </body>
 </html>

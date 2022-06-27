@@ -23,3 +23,5 @@
 
 # Se añadieron sweets alerts para una ejecución más amigable
 
+# Se añadio un archivo JSON, simulando una api de información de verduras y frutas, teniendo imagen, e info nutricional, solo basta elegir una fruta o verdura en el select y presionar el boton "Información"
+
