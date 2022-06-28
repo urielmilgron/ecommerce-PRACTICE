@@ -125,6 +125,9 @@ body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos .numeros {
   flex-direction: row;
   justify-content: space-around;
 }
+body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos .numeros .total {
+  width: 75%;
+}
 body .mainMaster .mainCentrado .rowDiv .pagarTotal .dos .pagar {
   height: 50px;
   font-family: "Pathway Gothic One", sans-serif;

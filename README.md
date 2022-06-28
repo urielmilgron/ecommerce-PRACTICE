@@ -25,3 +25,8 @@
 
 # Se añadio un archivo JSON, simulando una api de información de verduras y frutas, teniendo imagen, e info nutricional, solo basta elegir una fruta o verdura en el select y presionar el boton "Información"
 
+# Se agrego un evento async con respecto a la carga del carro.
+
+# Se corrigío el resultado total cuando daba muchos decimales al elegir pago en cuotas
+
+# Se añadio botones de eliminación de productos

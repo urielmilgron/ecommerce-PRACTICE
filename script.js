@@ -3,7 +3,9 @@ let precio = 0;
 let unidad = 0;
 let precioTotal = 0;
 let precioFinal = 0;
+let precioConRecargo = 0;
 let resultado;
+let i = 0;
 //Tomo id/queryselectors de los forms
 let productos = document.getElementById("productos");
 let unidades = document.getElementById("unidades");
@@ -42,48 +44,64 @@ const cuotas = [
 ];
 let carrito = [];
 //Le pregunto al storage si hay datos en el.
-setTimeout(()=>{
-  if (localStorage.getItem('carrito')!=null || localStorage.getItem('precioTotal')!=null){
-    carrito = JSON.parse(localStorage.getItem('carrito'));
-    precioTotal = JSON.parse(localStorage.getItem('precioTotal'));
+setTimeout(() => {
+  if (
+    localStorage.getItem("carrito") != null ||
+    localStorage.getItem("precioTotal") != null
+  ) {
+    carrito = JSON.parse(localStorage.getItem("carrito"));
+    precioTotal = JSON.parse(localStorage.getItem("precioTotal"));
     total.placeholder = "$" + precioTotal;
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Se cargó el carrito!',
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
       showConfirmButton: false,
-      timer: 1500
-    })
-    }
-    else{
-    carrito = [];
-    
-    precioTotal = 0; 
-    }
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
 
-},800)
+    Toast.fire({
+      icon: "success",
+      title: "Se ha cargado el carrito!",
+    });
+  } else {
+    carrito = [];
+
+    precioTotal = 0;
+  }
+}, 800);
 
 //Función de reseteo de var e index
 function reseteo() {
   unidad = 0;
-  unidades.value = undefined;
+  unidades.value = "";
   metodosPago.selectedIndex = "0";
   cuotasSeleccionadas.selectedIndex = "0";
   cuotasSeleccionadas.style.display = "none";
 }
 //Función aviso de carro vacío
-function carritoVacio(){
+function carritoVacio() {
   Swal.fire({
-    position: 'top-end',
-    icon: 'error',
-    title: 'No hay elementos en el carrito',
+    position: "top-end",
+    icon: "error",
+    title: "No hay elementos en el carrito",
     showConfirmButton: false,
-    timer: 1500
-  })
+    timer: 1500,
+  });
 }
 //Muestra total si es mayor a 0, si no, se imprime no hay monto.
-function zero(param1) { 
-  param1 > 0 ? total.placeholder = "$" + precioFinal : total.placeholder = "No hay monto";
+function zero(param1) {
+  param1 > 0
+    ? (total.placeholder = "$" + precioFinal)
+    : (total.placeholder = "No hay monto");
+}
+//Funcion que solo muestra 2 decimales
+function decimal(num) {
+  return num.toFixed(2);
 }
 //Funcion que muestra precio
 function mostrarPrecio() {
@@ -99,14 +117,9 @@ function tomarUnidad() {
 }
 //Sube al carrito las unidades de los productos y los sube al Local Storage
 function subirAlCarro() {
-  console.log(unidad);
-  console.log(unidades.value);
-  
-  
   //creo una constante que verifique si el elemento ya existe en el carrito con find.
   const duplicado = carrito.some((elemento) => elemento.ID === resultado.ID);
-  console.log(duplicado);
-  //Si el resultado es false o no se encontró el elemento, se ejecuta el código dentro.
+  //Si el resultado es false se ejecuta el código dentro.
   if (duplicado == false) {
     //La unidad de resultado va a ser lo que haya en unidad
     resultado.unit = parseInt(unidad);
@@ -114,56 +127,55 @@ function subirAlCarro() {
     carrito.push(resultado);
   } else {
     //y si es true, busco donde está el index del elemento encontrado.
-    let modificar = carrito.findIndex((elemento)=>elemento.ID == resultado.ID)
+    let modificar = carrito.findIndex(
+      (elemento) => elemento.ID == resultado.ID
+    );
     //console.log(modificar);  //Verifico
     //Lo busco en los array del carrito, y le sumo solamente las unidades.
     carrito[modificar].unit += parseInt(unidad);
-    
   }
   //Subo el carrito al localStorage con su lenguaje a partir de JSON.
-  localStorage.setItem('carrito',JSON.stringify(carrito));
+  localStorage.setItem("carrito", JSON.stringify(carrito));
   //Verificación
   Swal.fire({
-    position: 'top-end',
-    icon: 'success',
-    title: 'Se han añadido los productos al carrito',
+    position: "top-end",
+    icon: "success",
+    title: "Se han añadido los productos al carrito",
     showConfirmButton: false,
-    timer: 1500
-  })
+    timer: 1500,
+  });
   console.log(carrito);
-
 }
 //SE AGREGA AL CARRO CON TECLA ENTER
 function agregarAlCarro(event) {
   x = event.key;
- x == "Enter" && agregar();
+  x == "Enter" && agregar();
 }
 //FUNCION QUE AGREGA AL CARRO O DA AVISO SI NO HAY DATO.
 function agregar() {
   console.log(carrito);
   //Si no hay producto elegido, se le avisa que no eligio uno.
-  if(productos.selectedIndex == "0"){
+  if (productos.selectedIndex == "0") {
     Swal.fire({
-      position: 'top-middle',
-      icon: 'error',
-      title: 'No ha elegido un producto',
+      position: "top-middle",
+      icon: "error",
+      title: "No ha elegido un producto",
       showConfirmButton: false,
-      timer: 1500
-    })
-  } 
+      timer: 1500,
+    });
+  }
   //Y si eligió producto, pero no ingreso un digito del 1 al 10, o directamente no ingreso nada, se le avisa
-  else if (unidad <= 0||unidad > 10 || unidad % 1 != 0) {
+  else if (unidad <= 0 || unidad > 10 || unidad % 1 != 0) {
     unidad = 0;
     unidades.value = undefined;
-      Swal.fire({
-        position: 'top-middle',
-        icon: 'error',
-        title: 'Ha ingresado un dato inválido.',
-        text:'Solo se pueden ingresar de 1 a 10 unidades.',
-        showConfirmButton: false,
-        timer: 1700
-      })
-    
+    Swal.fire({
+      position: "top-middle",
+      icon: "error",
+      title: "Ha ingresado un dato inválido.",
+      text: "Solo se pueden ingresar de 1 a 10 unidades.",
+      showConfirmButton: false,
+      timer: 1700,
+    });
   }
   //y si no, se sube el dato al carro.
   else {
@@ -174,60 +186,98 @@ function agregar() {
     //Se muestra precio total en el input total
     total.placeholder = "$" + precioTotal;
     //Subo el total al storage
-    localStorage.setItem('precioTotal',JSON.stringify(precioTotal));
+    localStorage.setItem("precioTotal", JSON.stringify(precioTotal));
     //Se resetea valor del input "unidad"
     reseteo();
   }
 }
-/////Function ver carrito//////
-function verCarrito(){
-  //Si el vacio está vacio, se llama a una función que contiene un swal.fire avisando a usuario que no hay
-  //elementos en el carro.
-  if ( carrito.length == 0){
-    carritoVacio();
-  }else{ //Y si no, se le muestra el modal de productos al usuario
-  //Abro modal
-abrir();
-abrirTabla();
-//por cada producto dentro de carrito, muestro los datos por innerHTML
-  for(const producto of carrito){
-    contenidoTable.innerHTML+=
-    ` <tr>
+function actualizarCarrito() {
+  contenidoTable.innerHTML = ``;
+  i = 0;
+  for (const producto of carrito) {
+    // if (carrito[].unit>0){
+    //   contenidoTable.innerHTML += ` <tr>
+    //   <th scope="row"></th>
+    //   <td>${producto.nombre}</td>
+    //   <td>${producto.precio}</td>
+    //   <td>${producto.unit}</td>
+    //   <td><button type="button" id="botonEliminar" value="${i++}" onclick="eliminarProductos()" class="btn btn-primary btn-eliminar">X</button></td>
+    // </tr>
+    // `;
+    // }
+    // else{
+    //   carritoVacio();
+    // }
+    contenidoTable.innerHTML += ` <tr>
     <th scope="row"></th>
     <td>${producto.nombre}</td>
     <td>${producto.precio}</td>
     <td>${producto.unit}</td>
+    <td><button type="button" id="botonEliminar" value="${i++}" onclick="eliminarProductos()" class="btn btn-primary btn-eliminar">X</button></td>
   </tr>
-  `
+  `;
   }
 }
+/////Function ver carrito//////
+function verCarrito() {
+  //Si el vacio está vacio, se llama a una función que contiene un swal.fire avisando a usuario que no hay
+  //elementos en el carro.
+  if (carrito.length == 0) {
+    carritoVacio();
+  } else {
+    //Y si no, se le muestra el modal de productos al usuario
+    //Abro modal
+    abrir();
+    abrirTabla();
+    //por cada producto dentro de carrito, muestro los datos por innerHTML
+    actualizarCarrito();
+  }
 }
+
+function eliminarProductos() {
+  //Invoco a las clases con queryS
+  let eliminarElemento = document.querySelectorAll(".btn-eliminar");
+  //Creo una funcion para eliminar productos.
+  const valueBtn = function (evento) {
+    if (carrito[this.value].unit <= 0) {
+      carrito[this.value].unit = 0;
+    } else {
+      carrito[this.value].unit -= 1;
+      console.log(carrito[this.value].unit);
+    }
+    actualizarCarrito();
+  };
+  eliminarElemento.forEach((boton) => {
+    boton.addEventListener("click", valueBtn);
+  });
+}
+
 function vaciarCarrito() {
-console.log(carrito);
-if ( carrito.length == 0){
-  carritoVacio();
-}
-else{
-  //Reseteo las var para que el precio total se ponga en 0
-  precioTotal = 0;
-  precioFinal = 0;
-  reseteo();
-  total.placeholder = "$" + precioTotal;
-  //Elimino los datos del array con un for.
-  for(let i = carrito.length;i>0; i--){
-    carrito.pop();
+  console.log(carrito);
+  if (carrito.length == 0) {
+    carritoVacio();
+  } else {
+    //Reseteo las var para que el precio total se ponga en 0
+    precioTotal = 0;
+    precioFinal = 0;
+    reseteo();
+    total.placeholder = "$" + precioTotal;
+    //Elimino los datos del array con un for.
+    for (let i = carrito.length; i > 0; i--) {
+      carrito.pop();
+    }
+    localStorage.clear();
+    contenidoTable.innerHTML = ``;
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Se ha vaciado el carrito",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
-  localStorage.clear();
-  contenidoTable.innerHTML=``;
-  Swal.fire({
-    position: 'top-end',
-    icon: 'success',
-    title: 'Se ha vaciado el carrito',
-    showConfirmButton: false,
-    timer: 1500
-  })
 }
-}
+
 let resultadoMetodo;
 function mostrarPrecioFinal() {
   resultadoMetodo = metodos.find(
@@ -240,6 +290,7 @@ function mostrarPrecioFinal() {
     cuotasSeleccionadas.style.display = "flex";
   } else {
     cuotasSeleccionadas.style.display = "none";
+    cuotasSeleccionadas.selectedIndex = 0;
     precioFinal = resultadoMetodo.descuentoORecargo * precioTotal;
     zero(precioFinal);
   }
@@ -256,24 +307,25 @@ function mostrarCuotas() {
   precioFinal = resultadoCuotas.recargo * precioTotal;
   //Si precio final es mayor a 0, se le indica cuanto tendría que pagar.
   if (precioFinal > 0) {
+    precioConRecargo = precioFinal / resultadoCuotas.numero;
     total.placeholder =
       "$" +
       precioFinal +
       " Finales, serían: " +
       resultadoCuotas.nombre +
       " de $" +
-      precioFinal / resultadoCuotas.numero;
+      decimal(precioConRecargo);
   }
   //Y si no, el placeholder es igual a "No hay monto".
   else {
     total.placeholder = "No hay monto";
   }
 }
-function abrirTabla(){
-  tabla.classList -= 'd-none';
+function abrirTabla() {
+  tabla.classList -= "d-none";
 }
-function cerrarTabla(){
-  tabla.classList+=' d-none'
+function cerrarTabla() {
+  tabla.classList += " d-none";
 }
 //Creo una función para abrir un modal.
 function abrir() {
@@ -288,87 +340,100 @@ function cerrar() {
 function paga() {
   //Abro el modal sea que no haya ingresado dato, o lo haya ingresado.
   //Si el precio final es 0 o el indice o value de "metodosPago" es 0, se le indíca al usuario que no hizo ninguna compra.
-  if (precioFinal == 0 || metodosPago.selectedIndex == "0" || metodosPago.selectedIndex == "1" && cuotasSeleccionadas.selectedIndex == "0") {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Todavía no compró nada y/o no eligío ningun método de pago.'
-      })
+  if (
+    precioFinal == 0 ||
+    metodosPago.selectedIndex == "0" ||
+    (metodosPago.selectedIndex == "1" &&
+      cuotasSeleccionadas.selectedIndex == "0")
+  ) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Todavía no compró nada y/o no eligío ningun método de pago.",
+    });
   } else {
     Swal.fire({
-      title: 'Estas seguro?',
-      text: "Estas por pagar con "+metodosPago.options[metodosPago.selectedIndex].text+".",
-      icon: 'warning',
+      title: "Estas seguro?",
+      text:
+        "Estas por pagar con " +
+        metodosPago.options[metodosPago.selectedIndex].text +
+        ".",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Pagar'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Pagar",
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Transacción exitosa',
-          'Te llegara un email en unos instantes, gracias por comprar en esta tienda!',
-          'success'
-        ).then(() => { //Está funcion flecha la encontre por ahí, si usuario apreta OK, se actualiza la página y se borra el storage.
+          "Transacción exitosa",
+          "Te llegara un email en unos instantes, gracias por comprar en esta tienda!",
+          "success"
+        ).then(() => {
+          //Está funcion flecha la encontre por ahí, si usuario apreta OK, se actualiza la página y se borra el storage.
           localStorage.clear();
           precioFinal = 0;
           location.reload();
-        })  
+        });
       }
-    })
+    });
     //Borro todo y se realiza la transacción
   }
 }
+
 //BOTON INFORMACIÓN
-informacion.addEventListener('click',()=> {
+informacion.addEventListener("click", () => {
   //Si el index del select es igual a 0, se le informa que no se eligio producto
-  if (productos.selectedIndex == 0){
+  if (productos.selectedIndex == 0) {
     Swal.fire({
-      position: 'top-center',
-      icon: 'error',
-      title: 'No se eligió ningún producto',
+      position: "top-center",
+      icon: "error",
+      title: "No se eligió ningún producto",
       showConfirmButton: false,
-      timer: 1500
-    })
+      timer: 1500,
+    });
   }
   //Y si no, se le muestra la info.
-  else{
+  else {
     //Se realiza un fetch al data.json con los datos de los productos.
-       fetch(`/data.json`)
-        .then(response => {
-          //Si la respuesta es diferente de response.ok, se lanza un nuevo error, mostrando el response con el texto error.
-          if (!response.ok) {
-            throw new Error(response.statusText)
-          }
-          //Si no, se returna response
-          return response.json()
-        })
-        //Si hay error, se le indica que no hubo respuesta.
-        .catch(error => {
-          Swal.showValidationMessage(
-            `Falló la solicitud: ${error}`
-          )
-        })
-        //Y si hubo resultado, y ademas el result tiene 6 array, se ejecuta el swal con la info del producto elegido por select.
-   .then((result) => {
-     if (result.length == 6) {
-      Swal.fire({
-        imageUrl:`${result[productos.selectedIndex-1].img}`,
-        imageHeight: 80,imageWidth: 100,
-        title: `${result[productos.selectedIndex-1].nombre}`,
-        text:`Tipo: ${result[productos.selectedIndex-1].tipo}, Carbohidratos: ${result[productos.selectedIndex-1].carbohidratos}, Azúcares: ${result[productos.selectedIndex-1].azucares}` ,
+    fetch(`/data.json`)
+      .then((response) => {
+        //Si la respuesta es diferente de response.ok, se lanza un nuevo error, mostrando el response con el texto error.
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        //Si no, se returna response
+        return response.json();
       })
-    }
-  })
-}
-}) //FIN
+      //Si hay error, se le indica que no hubo respuesta.
+      .catch((error) => {
+        Swal.showValidationMessage(`Falló la solicitud: ${error}`);
+      })
+      //Y si hubo resultado, y ademas el result tiene 6 array, se ejecuta el swal con la info del producto elegido por select.
+      .then((result) => {
+        if (result.length == 6) {
+          Swal.fire({
+            imageUrl: `${result[productos.selectedIndex - 1].img}`,
+            imageHeight: 80,
+            imageWidth: 100,
+            title: `${result[productos.selectedIndex - 1].nombre}`,
+            text: `Tipo: ${
+              result[productos.selectedIndex - 1].tipo
+            }, Carbohidratos: ${
+              result[productos.selectedIndex - 1].carbohidratos
+            }, Azúcares: ${result[productos.selectedIndex - 1].azucares}`,
+          });
+        }
+      });
+  }
+}); //FIN
 
 //Si apreta el botón cerrar, se cierra el modal.
 cerrarModal.addEventListener("click", () => {
   cerrar();
   cerrarTabla();
   //Si ya se pidio pagar, se reinicia la página.
-  //Reseteo el contenido texto 
-  contenidoTable.innerHTML='';
-  contenidoTexto.innerHTML='';
+  //Reseteo el contenido texto
+  contenidoTable.innerHTML = "";
+  contenidoTexto.innerHTML = "";
 });

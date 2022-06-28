@@ -121,6 +121,9 @@ body {
               display: flex;
               flex-direction: row;
               justify-content: space-around;
+              .total{
+                width: 75%;
+              }
             }
 
             .pagar {
