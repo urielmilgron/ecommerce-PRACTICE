@@ -30,3 +30,5 @@
 # Se corrigío el resultado total cuando daba muchos decimales al elegir pago en cuotas
 
 # Se añadio botones de eliminación de productos
+
+# Se añadio api para validar email cuando se intente pagar el monto.

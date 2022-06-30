@@ -426,7 +426,7 @@ function paga() {
             method: "GET",
             redirect: "follow",
           };
-          //Doble filtro para saber si realmente es un email válido
+          //Doble filtro para saber si realmente es un email válido, aunque no siempre sea correcto el email
           fetch("https://www.disify.com/api/email/" + email, requestOptions)
             .then((response) => response.json())
             .then((result) => {
