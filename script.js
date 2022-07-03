@@ -143,7 +143,7 @@ informacion.addEventListener("click", () => {
   //Y si no, se le muestra la info.
   else {
     //Se realiza un fetch al data.json con los datos de los productos.
-    fetch(`/data.json`)
+    fetch(`data.json`)
       .then((response) => {
         //Si la respuesta es diferente de response.ok, se lanza un nuevo error, mostrando el response con el texto error.
         if (!response.ok) {
@@ -417,10 +417,10 @@ function paga() {
         (async () => {
           //Valido el email que se ingresa
           const { value: email } = await Swal.fire({
-            title: "Input email address",
+            title: "Ya casi!",
             input: "email",
-            inputLabel: "Your email address",
-            inputPlaceholder: "Enter your email address",
+            inputLabel: "Ingrese su email para enviarle instrucciones sobre el pago",
+            inputPlaceholder: "Email",
           });
           let requestOptions = {
             method: "GET",
@@ -447,16 +447,16 @@ function paga() {
                   title: "Exito",
                   text:
                     "Se ha enviado un mail a "+email+" con el código de pago para pagarlo con " +
-                    metodosPago.options[metodosPago.selectedIndex].text,
+                    metodosPago.options[metodosPago.selectedIndex].text+". Una vez pagado, nos contactaremos para realizar el envío!",
                   showConfirmButton: false,
-                  timer: 2500,
+                  timer: 4500,
                 });
                 //Borro todo
                 setTimeout(() => {
                   reseteo();
                   localStorage.clear();
                   location.reload();
-                }, 2600);
+                }, 5000);
               }
             })
             .catch((error) =>
